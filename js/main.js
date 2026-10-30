@@ -195,6 +195,17 @@
       '..KYYYYYYK..',
       '..KKKKKKKK..',
     ],
+    phone: [
+      '.KKKKKK.',
+      '.KwwwwK.',
+      '.KwOOwK.',
+      '.KwwwwK.',
+      '.KwOwwK.',
+      '.KwwwwK.',
+      '.KKKKKK.',
+      '.KKYYKK.',
+      '.KKKKKK.',
+    ],
     lock: [
       '..KKKK..',
       '.K....K.',
@@ -304,6 +315,21 @@
     details: 'Hẹn gặp bạn ở trường nhé!',
   });
 
+  // ====== Sao chép số điện thoại ======
+  const copyBtn = document.getElementById('copyPhone');
+  copyBtn.addEventListener('click', async () => {
+    const label = copyBtn.querySelector('span');
+    try {
+      await navigator.clipboard.writeText('0775743304');
+      label.textContent = 'Đã chép rồi nè!';
+      const r = copyBtn.getBoundingClientRect();
+      burst(r.left + r.width / 2, r.top, 24);
+    } catch {
+      label.textContent = '0775743304';
+    }
+    setTimeout(() => { label.textContent = 'Sao chép số'; }, 2200);
+  });
+
   // ====== Hiện dần khi cuộn ======
   const io = new IntersectionObserver(entries => entries.forEach(e => {
     if (!e.isIntersecting) return;
@@ -365,6 +391,7 @@
     burst(r.left + r.width / 2, r.top + r.height / 2, 30);
     setTimeout(() => {
       noBtn.hidden = true;
+      noBtn.parentElement.classList.add('solo');
       if (subText) rsvpSub.textContent = subText;
     }, 600);
   }
@@ -373,6 +400,7 @@
     rsvpMsg.hidden = false;
     rsvpMsg.textContent = 'Yayyy! Hẹn gặp bạn ngày 07.11 nha!';
     rsvpMsg.style.animation = 'none'; void rsvpMsg.offsetWidth; rsvpMsg.style.animation = '';
+    document.getElementById('rsvpZalo').hidden = false;
     rsvpChar.src = FULL_HAPPY;
     setTimeout(() => { rsvpChar.src = FULL; }, 1600);
     document.querySelector('.badges li.locked')?.classList.add('unlocked');

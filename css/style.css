@@ -22,6 +22,7 @@
   --pop:cubic-bezier(.34,1.56,.64,1);
 }
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html{scroll-behavior:smooth}
 body{margin:0;min-height:100vh;color:var(--ink);font-family:var(--f-body);font-size:17px;line-height:1.6;
   background:var(--sky-3);overflow-x:clip;-webkit-font-smoothing:antialiased}
@@ -234,6 +235,27 @@ a{color:inherit}
 .btn:active{transform:translateY(5px);box-shadow:0 1px 0 var(--ink)}
 .btn-yellow{background:var(--yellow)}
 .btn-white{background:#fff}
+.btn-pink{background:var(--pink)}
+.btn-blue{background:#7cc8ff}
+
+/* Khung liên hệ trong thư mời */
+.contact{position:relative;max-width:620px;margin:30px auto 0;padding:26px clamp(14px,3vw,28px) 24px;background:#fff0f6;
+  border:4px dashed var(--pink-d);border-radius:24px;box-shadow:0 6px 0 rgba(226,87,139,.25)}
+.ct-head{position:absolute;left:50%;top:0;transform:translate(-50%,-55%);margin:0;display:flex;align-items:center;gap:8px;white-space:nowrap;
+  padding:4px 18px 4px 12px;background:var(--pink);border:3px solid var(--ink);border-radius:999px;box-shadow:0 4px 0 var(--ink);
+  font-family:var(--f-head);font-weight:800;font-size:17px}
+.ct-icon{width:20px;animation:ring 1.6s ease-in-out infinite}
+@keyframes ring{0%,50%,100%{transform:rotate(0)}5%,15%,25%{transform:rotate(-14deg)}10%,20%,30%{transform:rotate(14deg)}}
+.ct-num{display:inline-block;margin:6px 0 0;font-family:var(--f-head);font-weight:800;font-size:clamp(34px,6.5vw,52px);line-height:1.2;
+  letter-spacing:1px;color:var(--pink-d);text-decoration:none;text-shadow:0 3px 0 #ffd0e0;transition:transform .3s var(--pop)}
+.ct-num:hover{transform:scale(1.06) rotate(-2deg)}
+.ct-note{margin:4px 0 16px;font-weight:700;font-size:15px;color:var(--ink-2)}
+.ct-btns{display:flex;flex-wrap:wrap;justify-content:center;gap:12px}
+.ct-btns .btn{padding:10px 20px;font-size:17px}
+.rsvp-zalo{margin-top:16px;animation:bubbleIn .5s var(--pop)}
+.foot-contact{margin:4px 0 0!important}
+.foot-contact a{color:#fff;font-weight:800}
+
 .closing{margin:30px auto 0;max-width:560px;font-family:var(--f-hand);font-weight:600;font-size:clamp(18px,2.4vw,22px);line-height:1.6}
 
 /* ===== Tiêu đề section ===== */
@@ -311,7 +333,8 @@ a{color:inherit}
 .rsvp-h{margin:4px 0 0;font-family:var(--f-head);font-weight:800;font-size:clamp(32px,5vw,46px);line-height:1.15;color:var(--green-d)}
 .rsvp-sub{margin:6px 0 22px;font-weight:700;color:var(--ink-2)}
 .rsvp-btns{position:relative;display:flex;flex-wrap:wrap;justify-content:center;gap:16px;min-height:70px}
-.rsvp-btns{min-height:150px;align-items:center}
+.rsvp-btns{min-height:150px;align-items:center;transition:min-height .4s ease}
+.rsvp-btns.solo{min-height:80px}
 #noBtn{transition:translate .4s var(--pop),rotate .4s var(--pop),scale .4s var(--pop),opacity .5s ease}
 #yesBtn{transition:transform .15s,box-shadow .15s,scale .45s var(--pop)}
 .rsvp-msg{margin:22px 0 0;font-family:var(--f-hand);font-weight:700;font-size:22px;color:var(--pink-d);animation:bubbleIn .5s var(--pop)}
@@ -353,6 +376,7 @@ a{color:inherit}
   .bubble{font-size:13px}
   .stats li{grid-template-columns:96px 1fr 30px;gap:8px;font-size:14px}
   .badges{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ct-btns .btn{flex:1 1 100%;justify-content:center}
 }
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
