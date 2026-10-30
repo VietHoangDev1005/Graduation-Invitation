@@ -320,15 +320,24 @@
 
   document.querySelectorAll('.badges li').forEach((li, i) => li.style.setProperty('--i', i));
 
-  // ====== Hành trình: đường vàng + nhân vật chạy theo cuộn ======
+  // ====== Hành trình: nhân vật nhảy tới đúng mốc của màn đang xem ======
   const levels = document.getElementById('levels');
   const levelItems = [...levels.querySelectorAll('.level')];
+  const road = levels.querySelector('.road'), rider = document.getElementById('rider');
+  const DOT = 44; // tâm chấm tròn tính từ mép trên mỗi màn (top 28px + nửa chấm 16px)
+  let curLevel = null;
   function onScroll() {
-    const r = levels.getBoundingClientRect();
-    const p = Math.min(1, Math.max(0, (innerHeight * .6 - r.top) / r.height));
-    levels.style.setProperty('--p', p.toFixed(4));
-    const tip = r.top + r.height * p;
-    levelItems.forEach(li => li.classList.toggle('done', li.getBoundingClientRect().top + 30 <= tip));
+    // màn đang xem = màn cuối cùng có chấm tròn đã đi qua 60% chiều cao màn hình
+    let idx = -1;
+    levelItems.forEach((li, i) => { if (li.getBoundingClientRect().top + DOT <= innerHeight * .6) idx = i; });
+    levelItems.forEach((li, i) => li.classList.toggle('done', i <= idx));
+    const y = levelItems[Math.max(idx, 0)].offsetTop + DOT - road.offsetTop;
+    levels.style.setProperty('--y', y + 'px');
+    levels.style.setProperty('--fill', (idx < 0 ? 0 : y) + 'px');
+    if (curLevel !== null && idx !== curLevel) {
+      rider.classList.remove('hop'); void rider.offsetWidth; rider.classList.add('hop');
+    }
+    curLevel = idx;
   }
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll);

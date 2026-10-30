@@ -248,9 +248,12 @@ a{color:inherit}
 .levels{position:relative;max-width:780px;margin:0 auto;padding:0 0 0 84px;list-style:none;--p:0}
 .road{position:absolute;left:30px;top:20px;bottom:40px;width:14px;border-radius:8px;border:3px solid var(--ink);
   background:repeating-linear-gradient(180deg,#fff 0 12px,#e5f7ec 12px 24px)}
-.road-fill{position:absolute;left:0;right:0;top:0;height:calc(var(--p) * 100%);border-radius:6px;
+.road-fill{position:absolute;left:0;right:0;top:0;height:var(--fill,0px);border-radius:6px;transition:height .6s cubic-bezier(.4,0,.2,1);
   background:repeating-linear-gradient(180deg,var(--yellow) 0 12px,#ffbf1f 12px 24px)}
-.rider{position:absolute;left:50%;top:calc(var(--p) * 100%);width:46px;transform:translate(-50%,-62%);filter:drop-shadow(0 3px 0 rgba(18,61,45,.3))}
+.rider{position:absolute;left:50%;top:var(--y,24px);width:46px;z-index:2;transform:translate(-50%,-50%);filter:drop-shadow(0 3px 0 rgba(18,61,45,.3));
+  transition:top .6s cubic-bezier(.4,0,.2,1)}
+.rider.hop{animation:riderHop .6s ease-out}
+@keyframes riderHop{0%{transform:translate(-50%,-50%)}40%{transform:translate(-50%,-95%) rotate(-8deg)}75%{transform:translate(-50%,-40%) scale(1.08,.92)}100%{transform:translate(-50%,-50%)}}
 .level{position:relative;display:grid;grid-template-columns:64px 1fr;gap:18px;align-items:start;margin:0 0 26px;padding:20px 22px;
   background:var(--cream);border:4px solid var(--ink);border-radius:24px;box-shadow:0 8px 0 var(--green-d);
   opacity:.55;transform:translateX(24px) scale(.97);transition:opacity .5s,transform .6s var(--pop),box-shadow .4s}
